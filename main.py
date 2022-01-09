@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from turtle import Turtle, Screen
 import random
 # import requests
@@ -6,7 +6,10 @@ import random
 app = Flask(__name__)
 
 @app.route('/')
+def home() :
+    return "<h1>Hello world</h1>"
 
+@app.route('/turtle')
 def tim() :
 
     is_race_on = False
@@ -35,10 +38,10 @@ def tim() :
                     is_race_on = False
                     winning_color = turtle.pencolor()
                     if winning_color == user_bet :
-                       return f"<h1> YOU WON .. CONGRATES</h1>"
+                       return render_template("index.html", loss=winning_color)
 
                     else :
-                        return f"<h1> YOU LOST .. SORRY</h1>"
+                        return render_template("index.html", loss=winning_color)
                         # print(f")
                            #Make each turtle move a random amount.
                 rand_distance = random.randint(0, 10)
